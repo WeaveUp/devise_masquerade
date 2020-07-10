@@ -78,7 +78,7 @@ class Devise::MasqueradesController < DeviseController
         unless session[session_key_masqueraded_resource_class].blank?
           session[session_key_masquerading_resource_class].constantize
         else
-          Devise.masqueraded_resource_class || resource_class
+          Devise.masqueraded_resource_class.safe_constantize || Devise.masqueraded_resource_class || resource_class
         end
       end
     end
@@ -96,7 +96,7 @@ class Devise::MasqueradesController < DeviseController
         unless session[session_key_masquerading_resource_class].blank?
           session[session_key_masquerading_resource_class].constantize
         else
-          Devise.masquerading_resource_class || resource_class
+          Devise.masquerading_resource_class.safe_constantize || Devise.masquerading_resource_class || resource_class
         end
       end
     end
